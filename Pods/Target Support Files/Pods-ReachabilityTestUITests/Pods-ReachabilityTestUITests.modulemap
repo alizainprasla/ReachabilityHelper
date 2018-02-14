@@ -1,0 +1,6 @@
+framework module Pods_ReachabilityTestUITests {
+  umbrella header "Pods-ReachabilityTestUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
