@@ -1,14 +1,10 @@
 # ReachabilityHelper
 
-ReachabilityHelper example project to demostrate if internet connectiviy is lost
+ReachabilityHelper example project to demostrate if internet connectivity is lost
 
 ## Getting Started
 
 Built in Swift 4
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
