@@ -8,16 +8,30 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class BaseController : UIViewController {
+    
+    func internetConnection(){
+        print("internetConnection")
+    }
+    
+}
+
+class ViewController: BaseController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ReachabilityManager.shared.onConnection(controller: self)
     }
-
     
+    override func internetConnection() {
+        super.internetConnection()
+    }
     
-
-
-
+    @IBAction func actionPush(){
+        let story = UIStoryboard(name: "Main", bundle: nil)
+        let controller = story.instantiateViewController(withIdentifier: "Controller")
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
 }
 

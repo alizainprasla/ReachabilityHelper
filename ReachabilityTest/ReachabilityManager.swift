@@ -16,7 +16,7 @@ class ReachabilityManager {
     private let reachability:Reachability?
     private var labelReachability:ReachabilityLabel?
     
-    var controllers:[UIViewController]?
+    var controllers:[BaseController]?
     
     private init() {
         
@@ -35,6 +35,10 @@ class ReachabilityManager {
             case .cellular, .wifi:
                 print("Internet Connected \(connection)")
                 self.labelReachability?.didConnect()
+                if (self.controllers?.count)! > 0 {
+                self.controllers?.forEach({ (vc) in
+                    vc.internetConnection()
+                })}
                 break
             case .none:
                 print("No Connection Device")
@@ -56,7 +60,7 @@ class ReachabilityManager {
             print("Unable to start notifier")
         }
         
-        controllers = [UIViewController]()
+        controllers = [BaseController]()
         
     }
 
@@ -70,7 +74,7 @@ class ReachabilityManager {
             return
         }
 
-        let frame = CGRect(x: 0, y: 30, width: 420, height: 20)
+        let frame = CGRect(x: 0, y: 64, width: 420, height: 20)
         labelReachability = ReachabilityLabel(frame: frame)
         window.addSubview(labelReachability!)
         window.bringSubview(toFront: labelReachability!)
@@ -92,4 +96,9 @@ class ReachabilityManager {
             print("Network not reachable")
         }
     }
+
+    func onConnection(controller:BaseController){
+        self.controllers?.append(controller)
+    }
+
 }
