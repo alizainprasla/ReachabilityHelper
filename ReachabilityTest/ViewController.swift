@@ -25,6 +25,13 @@ class ViewController: BaseController {
     
     override func internetConnection() {
         super.internetConnection()
+        var i = 0
+        self.navigationController?.viewControllers.forEach({ (controller) in
+            if controller == self{
+                print("controller in index == \(i)")
+            }
+            i += 1
+        })
     }
     
     @IBAction func actionPush(){
