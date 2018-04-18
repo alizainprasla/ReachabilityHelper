@@ -16,7 +16,7 @@ class ReachabilityManager {
     private let reachability:Reachability?
     private var labelReachability:ReachabilityLabel?
     
-    var controllers:[BaseController]?
+    var controllers:[UIViewController]?
     
     private init() {
         
@@ -37,7 +37,7 @@ class ReachabilityManager {
                 self.labelReachability?.didConnect()
                 if (self.controllers?.count)! > 0 {
                 self.controllers?.forEach({ (vc) in
-                    vc.internetConnection()
+                    vc.internetDidConnect()
                 })}
                 break
             case .none:
@@ -50,6 +50,10 @@ class ReachabilityManager {
         reachability?.whenUnreachable = { _ in
             print("Not reachable")
             self.labelReachability?.didDisconnect()
+            if (self.controllers?.count)! > 0 {
+                self.controllers?.forEach({ (vc) in
+                    vc.internetDidConnect()
+                })}
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
@@ -60,7 +64,7 @@ class ReachabilityManager {
             print("Unable to start notifier")
         }
         
-        controllers = [BaseController]()
+        controllers = [UIViewController]()
         
     }
 
@@ -97,7 +101,7 @@ class ReachabilityManager {
         }
     }
 
-    func onConnection(controller:BaseController){
+    func onConnection(controller:UIViewController){
         self.controllers?.append(controller)
     }
 

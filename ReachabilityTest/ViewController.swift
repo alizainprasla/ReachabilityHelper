@@ -8,23 +8,23 @@
 
 import UIKit
 
-class BaseController : UIViewController {
-    
-    func internetConnection(){
-        print("internetConnection")
-    }
-    
+
+
+extension UIViewController {
+    func internetDidConnect(){}
+    func internetDidDisconnect(){}
 }
 
-class ViewController: BaseController {
+class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         ReachabilityManager.shared.onConnection(controller: self)
     }
     
-    override func internetConnection() {
-        super.internetConnection()
+    
+    
+    func internetConnection() {
         var i = 0
         self.navigationController?.viewControllers.forEach({ (controller) in
             if controller == self{
